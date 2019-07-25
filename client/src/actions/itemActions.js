@@ -5,6 +5,12 @@ import {
   ADD_ITEM,
   ITEMS_LOADING
 } from '../actions/types';
+import {
+  returnErrors
+} from './errorAction';
+import {
+  tokenConfig
+} from './authAction';
 
 export const getItems = () => dispatch => {
   dispatch(setItemsLoading())
@@ -13,22 +19,25 @@ export const getItems = () => dispatch => {
       type: GET_ITEMS,
       payload: res.data
     }))
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
 };
 
-export const addItem = item => dispatch => {
+export const addItem = item => (dispatch, getState) => {
   axios
-    .post('/api/v1/item', item)
+    .post('/api/v1/item', item, tokenConfig(getState))
     .then(res => dispatch({
       type: ADD_ITEM,
       payload: res.data
     }))
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
 };
 
-export const deleteItem = id => dispatch => {
-  axios.delete(`/api/v1/item/${id}`).then(res => dispatch({
-    type: DELETE_ITEM,
-    payload: id
-  }))
+export const deleteItem = id => (dispatch, getState) => {
+  axios.delete(`/api/v1/item/${id}`, tokenConfig(getState))
+    .then(res => dispatch({
+      type: DELETE_ITEM,
+      payload: id
+    }))
 };
 
 export const setItemsLoading = () => {

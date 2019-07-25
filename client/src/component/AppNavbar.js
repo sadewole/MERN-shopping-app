@@ -30,7 +30,7 @@ class AppNavbar extends Component {
   };
 
   render() {
-    const { isAuthentication, user } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
       <Fragment>
@@ -63,7 +63,7 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className='ml-auto' navbar>
-                {isAuthentication ? authLinks : guestLinks}
+                {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>
           </Container>

@@ -1,12 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const items = require('./routes/api/item')
 const path = require('path')
-const dbURI = require('./config').DBconnection
+
+require('dotenv').config()
+// const dbURI = require('./config').DBconnection
+const dbURI = process.env.DBconnection
 
 // connect to mongodb
-mongoose.connect(dbURI, {
+mongoose.connect('mongodb://localhost:27017/mern-shopping', {
     useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
@@ -28,14 +30,23 @@ app.use(bodyParser.urlencoded({
 
 
 
-app.use('/api/v1/', items)
+app.use('/api/v1/item', require('./routes/api/item'))
+app.use('/api/v1/user', require('./routes/api/user'))
+app.use('/api/v1/auth', require('./routes/api/auth'))
+
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Header", "Origin, X-Requested-With, Content-Type, Accept");
-    next()
-})
-
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH');
+        return res.status(200).json({});
+    }
+    next();
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

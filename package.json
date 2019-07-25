@@ -4,9 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "play": "yarn run step",
-    "step": "yarn run end",
-    "end": "echo \"Should be echoed!\"",
     "client-install": "yarn add --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",

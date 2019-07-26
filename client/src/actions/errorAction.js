@@ -4,12 +4,12 @@ import {
 } from "./types";
 
 //Return Errors
-export const returnErrors = (msg, status, id = null) => {
+export const returnErrors = (status, msg, id = null) => {
     return {
         type: GET_ERRORS,
         payload: {
-            msg,
             status,
+            msg,
             id
         }
     }

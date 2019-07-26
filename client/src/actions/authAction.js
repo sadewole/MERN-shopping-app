@@ -5,12 +5,12 @@ import {
 import {
     USER_LOADED,
     USER_LOADING,
-    LOGIN_SUCCESS,
-    REGISTER_SUCCESS,
     AUTH_ERROR,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
     LOGIN_FAIL,
-    REGISTER_FAIL,
-    LOGOUT_SUCCESS
+    REGISTER_SUCCESS,
+    REGISTER_FAIL
 } from './types';
 
 // check token & load user
@@ -26,7 +26,7 @@ export const loadUser = () => (dispatch, getState) => {
             payload: res.data
         }))
         .catch(err => {
-            dispatch(returnErrors(err.response.status, err.response.data));
+            dispatch(returnErrors(err.response.data, err.response.status));
             dispatch({
                 type: AUTH_ERROR
             })
@@ -100,8 +100,6 @@ export const login = ({
 
 // Logout user
 export const logout = () => {
-    console.log(667);
-
     return {
         type: LOGOUT_SUCCESS
     }

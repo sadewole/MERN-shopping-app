@@ -19,7 +19,7 @@ export const getItems = () => dispatch => {
       type: GET_ITEMS,
       payload: res.data
     }))
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
+    .catch(err => dispatch(returnErrors(err.response.status, err.response.data)))
 };
 
 export const addItem = item => (dispatch, getState) => {
@@ -29,7 +29,7 @@ export const addItem = item => (dispatch, getState) => {
       type: ADD_ITEM,
       payload: res.data
     }))
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
+    .catch(err => dispatch(returnErrors(err.response.status, err.response.data)))
 };
 
 export const deleteItem = id => (dispatch, getState) => {

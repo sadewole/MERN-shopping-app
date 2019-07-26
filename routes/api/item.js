@@ -35,13 +35,14 @@ router.post('/', auth, (req, res) => {
 // @desc  Delete items
 // @access Private
 router.delete('/:id', auth, (req, res) => {
-    Item.findById(req.params.Id)
+    Item.findById(req.params.id)
         .then(item => item.remove().then(() => res.json({
-            success: true
-        })))
-        .catch(err => res.status(404).json({
-            success: false
-        }))
+                success: true
+            }))
+            .catch(err => res.status(404).json({
+                success: false
+            }))
+        )
 })
 
 module.exports = router

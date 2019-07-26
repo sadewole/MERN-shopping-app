@@ -5,11 +5,13 @@ const path = require('path')
 const cors = require('cors')
 
 require('dotenv').config()
+// const dbURI = require('./config').DBconnection
 const dbURI = process.env.DBconnection
 
 // connect to mongodb
-mongoose.connect(dbURI, {
-    useNewUrlParser: true
+mongoose.connect('mongodb://localhost:27017/mern-shopping', {
+    useNewUrlParser: true,
+    useCreateIndex: true
 });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;

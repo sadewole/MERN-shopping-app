@@ -35,6 +35,7 @@ class LoginModal extends Component {
     const { error, isAuthenticated } = this.props;
     if (error !== prevProps.error) {
       //Check for login error
+
       if (error.id === 'LOGIN_FAIL') {
         this.setState({
           msg: error.msg.msg
@@ -72,7 +73,10 @@ class LoginModal extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-    const user = { email, password };
+    const user = {
+      email,
+      password
+    };
 
     // Attempt to login
     this.props.login(user);
@@ -82,17 +86,18 @@ class LoginModal extends Component {
     return (
       <div>
         <NavLink onClick={this.toggle} href='#'>
-          Login
-        </NavLink>
+          Login{' '}
+        </NavLink>{' '}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+          <ModalHeader toggle={this.toggle}> Login </ModalHeader>{' '}
           <ModalBody>
+            {' '}
             {this.state.msg ? (
-              <Alert color='danger'>{this.state.msg}</Alert>
-            ) : null}
+              <Alert color='danger'> {this.state.msg} </Alert>
+            ) : null}{' '}
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for='email'> Email </Label>
+                <Label for='email'> Email </Label>{' '}
                 <Input
                   type='email'
                   name='email'
@@ -100,8 +105,8 @@ class LoginModal extends Component {
                   className='mb-3'
                   placeholder='Email'
                   onChange={this.onChange}
-                />
-                <Label for='password'> Password </Label>
+                />{' '}
+                <Label for='password'> Password </Label>{' '}
                 <Input
                   type='password'
                   name='password'
@@ -109,7 +114,7 @@ class LoginModal extends Component {
                   className='mb-3'
                   placeholder='Password'
                   onChange={this.onChange}
-                />
+                />{' '}
                 <Button
                   color='dark'
                   style={{
@@ -117,12 +122,12 @@ class LoginModal extends Component {
                   }}
                   block
                 >
-                  Login
-                </Button>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-        </Modal>
+                  Login{' '}
+                </Button>{' '}
+              </FormGroup>{' '}
+            </Form>{' '}
+          </ModalBody>{' '}
+        </Modal>{' '}
       </div>
     );
   }
@@ -135,5 +140,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { login, clearErrors }
+  {
+    login,
+    clearErrors
+  }
 )(LoginModal);

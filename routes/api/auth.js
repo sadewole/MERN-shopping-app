@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
             email
         })
         .then(user => {
-            if (user) return res.status(400).json({
+            if (!user) return res.status(400).json({
                 msg: 'User does not exist'
             })
 
@@ -64,7 +64,7 @@ router.post('/', (req, res) => {
 })
 
 // route Get api/v1/auth/user
-// @desc Get auth
+// @desc Get user data
 // @access private
 router.get('/user', auth, (req, res) => {
     User.findById(req.user.id)

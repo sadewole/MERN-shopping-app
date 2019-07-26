@@ -100,6 +100,8 @@ export const login = ({
 
 // Logout user
 export const logout = () => {
+    console.log(667);
+
     return {
         type: LOGOUT_SUCCESS
     }
